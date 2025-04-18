@@ -16,7 +16,7 @@ Sistem Monitoring dan Prediksi Bottleneck Cloud OpenStack Berbasis Time-Series u
 ## Struktur Proyek
 
 ```
-📦 ta-bottleneck-predictor/
+ta-bottleneck-predictor/
 ├── README.md                     ← deskripsi umum proyek (utama)
 ├── .gitignore                    ← abaikan file seperti .pkl, .ipynb_checkpoints
 ├── data/
@@ -76,7 +76,7 @@ Sistem Monitoring dan Prediksi Bottleneck Cloud OpenStack Berbasis Time-Series u
 
 ## Teknologi & Tools
 
-- 🖥**OpenStack DevStack** – platform cloud lokal
+- **OpenStack DevStack** – platform cloud lokal
 - **Prometheus** + **Grafana** – monitoring sistem real-time
 - **ab**, **wrk** – HTTP benchmarking tools
 - **Python** + `statsmodels`, `pmdarima` – ARIMA modeling
