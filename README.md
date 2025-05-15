@@ -36,86 +36,60 @@ Cloud Insight Platform adalah sistem terintegrasi untuk melakukan **monitoring r
 
 ## 📁 Struktur Direktori
 ```
-cloud-insight-platform/
+ta-bottleneck-predictor/
 ├── README.md
 ├── LICENSE
 ├── .gitignore
 
-├── infrastructure/                 # Infrastruktur cloud & monitoring
-│   ├── openstack/                 # Setup OpenStack DevStack
-│   │   ├── install_devstack.sh
-│   │   └── config/
-│   ├── prometheus/                # Setup Prometheus + Exporter
-│   │   ├── prometheus.yml
-│   │   ├── node_exporter.service
-│   │   └── run_prometheus.sh
-│   ├── grafana/                   # Setup dan dashboard
-│   │   ├── dashboard.json
-│   │   ├── datasources.yaml
-│   │   └── screenshots/
-│   └── stress_test/              # Beban sistem (opsional)
-│       ├── cpu_stress.sh
-│       ├── ram_stress.sh
-│       ├── disk_stress.sh
-│       ├── network_stress.sh
-│       └── logs/
+├── infrastructure/                 # Semua setup sistem nyata (OpenStack, Prometheus, Grafana, stress)
+│   ├── openstack/
+│   ├── prometheus/
+│   ├── grafana/
+│   └── stress_test/
 
 ├── data/
-│   ├── raw/                       # Dataset asli dari Bitbrains
-│   │   ├── bitbrains_cpu.csv
-│   │   └── ...
-│   ├── processed/                # Dataset setelah preprocessing
-│   │   ├── vm01_cpu_clean.csv
-│   │   ├── vm01_windowed.npz
-│   │   └── ...
-│   └── prometheus_export/       # Hasil ekspor dari Prometheus (untuk live data)
-│       └── latest_cpu.csv
+│   ├── raw/                        # File per-VM Bitbrains (1.csv - 1250.csv)
+│   └── processed/                 # Global dataset hasil preprocess
+│       ├── all_data.csv
+│       ├── X_all.npy
+│       ├── y_all.npy
+│       └── scaler.pkl
 
-├── notebooks/                     # Eksplorasi dan prototyping
+├── notebooks/                     # Prototyping, EDA, training, evaluasi
 │   ├── 0_data_preprocessing.ipynb
 │   ├── 1_model_training.ipynb
 │   ├── 2_prediction_inference.ipynb
 │   ├── 3_anomaly_detection.ipynb
+│   ├── 4_autoscaling_simulation.ipynb
 │   └── shared_utils.ipynb
 
-├── models/                        # Model terlatih
-│   ├── lstm_cpu_model.h5
-│   ├── lstm_ram_model.h5
-│   └── scalers/
+├── models/                        # Model terlatih (.h5)
+│   ├── lstm_global_model.h5
+│   └── anomaly_classifier.h5
 
-├── src/                           # Kode utama produksi
-│   ├── data_loader.py
-│   ├── model_lstm.py
-│   ├── train.py
-│   ├── predict.py
-│   ├── preprocess.py
-│   └── utils.py
+├── src/                           # Utility python files for reuse or production
+│   ├── utils.py                   # Load/save scaler, dataset, metrik
+│   └── inference_api.py           # (Opsional) bisa jadi app.py juga
 
-├── api/                           # (Opsional) REST API inference
-│   └── app.py
-
-├── deployment/                    # Script deployment model
+├── deployment/                    # Script bash/config
 │   ├── run_inference.sh
 │   └── config.json
 
-├── figures/                       # Output grafik & visualisasi
-│   ├── cpu_forecast.png
-│   ├── ram_forecast.png
-│   ├── anomaly_cpu.png
-│   └── recovery_plot.png
+├── figures/                       # Visualisasi grafik output
+│   ├── forecast_cpu.png
+│   ├── anomaly_roc.png
+│   └── autoscaling_simulation.png
 
-├── reports/                       # Laporan teknis & akademik
+├── evaluation/                    # CSV hasil evaluasi
+│   ├── error_per_resource.csv
+│   └── anomaly_scores.csv
+
+├── reports/                       # Laporan akhir / skripsi
 │   ├── draft.md
-│   ├── references.bib
-│   └── figures/
+│   └── references.bib
 
-├── evaluation/                    # Evaluasi & benchmark
-│   ├── benchmark_cpu.md
-│   ├── mae_mape_results.csv
-│   └── timing_cpu_vs_gpu.csv
-
-└── presentations/                 # Materi presentasi / pitch deck
-    ├── pitch_deck.pdf
+└── presentations/                 # Final slide & presentasi
+    ├── final_presentation.pptx
     └── presenter_notes.md
 ```
 
